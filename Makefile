@@ -1,0 +1,46 @@
+COMPILER = gcc
+COMPILER_FLAGS = -w -g -O2
+LIB_FLAGS = -lpthread
+
+SERVER_SRC_DIR = mathserver/src
+SERVER_OBJ_DIR = mathserver/objects
+SERVER_RESULTS_DIR = mathserver/computed_results
+CLIENT_SRC_DIR = client
+CLIENT_OBJ_DIR = client
+CLIENT_RESULTS_DIR = client/results
+INCLUDE_DIR = mathserver/include
+
+SERVER_TARGET = $(SERVER_OBJ_DIR)/server
+CLIENT_TARGET = $(CLIENT_OBJ_DIR)/client
+KMEANS_TARGET = $(SERVER_OBJ_DIR)/kmeans
+MATINV_TARGET = $(SERVER_OBJ_DIR)/matinv
+
+SERVER_SRC_FILES = $(wildcard $(SERVER_SRC_DIR)/server.c)
+CLIENT_SRC_FILES = $(wildcard $(CLIENT_SRC_DIR)/client.c)
+KMEANS_SRC_FILES = $(wildcard $(SERVER_SRC_DIR)/kmeans.c)
+MATINV_SRC_FILES = $(wildcard $(SERVER_SRC_DIR)/matinv_par.c)
+
+all: $(SERVER_TARGET) $(CLIENT_TARGET) $(KMEANS_TARGET) $(MATINV_TARGET)
+
+$(SERVER_TARGET): $(SERVER_SRC_FILES)
+	$(COMPILER) $(COMPILER_FLAGS) -o $@ $^ $(LIB_FLAGS)
+
+$(CLIENT_TARGET): $(CLIENT_SRC_FILES)
+	$(COMPILER) $(COMPILER_FLAGS) -o $@ $^ $(LIB_FLAGS)
+
+$(KMEANS_TARGET): $(KMEANS_SRC_FILES)
+	$(COMPILER) $(COMPILER_FLAGS) -o $@ $^ $(LIB_FLAGS)
+
+$(MATINV_TARGET): $(MATINV_SRC_FILES)
+	$(COMPILER) $(COMPILER_FLAGS) -o $@ $^ $(LIB_FLAGS)
+
+clean:
+	rm -f $(SERVER_TARGET) $(CLIENT_TARGET) $(KMEANS_TARGET) $(MATINV_TARGET)
+	rm -rf $(SERVER_RESULTS_DIR)/*
+	rm -rf $(CLIENT_RESULTS_DIR)/*
+	rm -rf $(SERVER_OBJ_DIR)/*
+
+clear:
+	rm -rf $(SERVER_RESULTS_DIR)/*
+	rm -rf $(CLIENT_RESULTS_DIR)/*
+	rm -rf $(SERVER_OBJ_DIR)/temp_client*
