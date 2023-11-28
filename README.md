@@ -13,10 +13,16 @@ Steps to run the server and client:
 4. Send commands from the client and observe the results within `computed_results` directory (server-side) and `results` directory (client-side)
 
 **Server command:** 
+<br>
 _Execution:_ <server_executable_path> -p <port_number> -s <strategy>
 
 **Client commands:** 
+<br>
 _Execution:_ <client_executable_path> (-ip <ip_address> | localhost) -p <port_number>
+<br>
+<br>
 Execute the commands below after connecting to the server
+<br>
 _K-means:_ kmeans -f <kmeans_data_file> -k <number_of_clusters>
+<br>
 _Matrix Inverse:_ matinv -n <size_of_matrix> -I <fast | rand>
